@@ -24,6 +24,7 @@ import {
   StrTypeToken,
   SubToken,
   Token,
+  NewLineToken,
 } from "./tokens.ts";
 
 export class Lexer {
@@ -80,13 +81,13 @@ export class Lexer {
   private pushTyp(): void {
     switch (this.buffer) {
       case "num":
-        this.tokens.push({ val: "num" } as NumTypeToken);
+        this.tokens.push({ typ: "NumTypeToken", val: "num" } as NumTypeToken);
         break;
       case "str":
-        this.tokens.push({ val: "str" } as StrTypeToken);
+        this.tokens.push({ typ: "StrTypeToken", val: "str" } as StrTypeToken);
         break;
       case "nul":
-        this.tokens.push({ val: "nul" } as NulTypeToken);
+        this.tokens.push({ typ: "NulTypeToken", val: "nul" } as NulTypeToken);
         break;
       default:
         break;
@@ -96,12 +97,12 @@ export class Lexer {
   private flushBuffer(): void {
     if (this.buffer.length > 0) {
       if (this.isNum()) {
-        this.tokens.push({ val: this.buffer } as NumToken);
+        this.tokens.push({ typ: "NumToken", val: this.buffer } as NumToken);
       } else if (this.isKey()) {
-        this.tokens.push({ val: this.buffer } as KeyToken);
+        this.tokens.push({ typ: "KeyToken", val: this.buffer } as KeyToken);
       } else {
         this.pushTyp();
-        this.tokens.push({ val: this.buffer } as IdeToken);
+        this.tokens.push({ typ: "IdeToken", val: this.buffer } as IdeToken);
       }
     }
     this.buffer = "";
@@ -109,7 +110,7 @@ export class Lexer {
 
   private flushString(): void {
     if (this.string.length > 0) {
-      this.tokens.push({ val: this.string } as StrToken);
+      this.tokens.push({ typ: "StrToken", val: this.string } as StrToken);
     }
     this.string = "";
   }
@@ -131,87 +132,87 @@ export class Lexer {
         switch (this.cursor) {
           case "(":
             this.flushBuffer();
-            this.tokens.push({ val: "(" } as LpaToken);
+            this.tokens.push({ typ: "LpaToken", val: "(" } as LpaToken);
             this.advance();
             break;
           case ")":
             this.flushBuffer();
-            this.tokens.push({ val: ")" } as RpaToken);
+            this.tokens.push({ typ: "RpaToken", val: ")" } as RpaToken);
             this.advance();
             break;
           case "{":
             this.flushBuffer();
-            this.tokens.push({ val: "{" } as LcuToken);
+            this.tokens.push({ typ: "LcuToken", val: "{" } as LcuToken);
             this.advance();
             break;
           case "}":
             this.flushBuffer();
-            this.tokens.push({ val: "}" } as RcuToken);
+            this.tokens.push({ typ: "RcuToken", val: "}" } as RcuToken);
             this.advance();
             break;
           case "[":
             this.flushBuffer();
-            this.tokens.push({ val: "[" } as LbrToken);
+            this.tokens.push({ typ: "LbrToken", val: "[" } as LbrToken);
             this.advance();
             break;
           case "]":
             this.flushBuffer();
-            this.tokens.push({ val: "]" } as RbrToken);
+            this.tokens.push({ typ: "RbrToken", val: "]" } as RbrToken);
             this.advance();
             break;
           case ",":
             this.flushBuffer();
-            this.tokens.push({ val: "," } as ComToken);
+            this.tokens.push({ typ: "ComToken", val: "," } as ComToken);
             this.advance();
             break;
           case ":":
             this.flushBuffer();
-            this.tokens.push({ val: ":" } as ColToken);
+            this.tokens.push({ typ: "ColToken", val: ":" } as ColToken);
             this.advance();
             break;
           case ";":
             this.flushBuffer();
-            this.tokens.push({ val: ";" } as SemToken);
+            this.tokens.push({ typ: "SemToken", val: ";" } as SemToken);
             this.advance();
             break;
           case ".":
             this.flushBuffer();
-            this.tokens.push({ val: "." } as DotToken);
+            this.tokens.push({ typ: "DotToken", val: "." } as DotToken);
             this.advance();
             break;
           case "<":
             this.flushBuffer();
-            this.tokens.push({ val: "<" } as LesToken);
+            this.tokens.push({ typ: "LesToken", val: "<" } as LesToken);
             this.advance();
             break;
           case ">":
             this.flushBuffer();
-            this.tokens.push({ val: ">" } as GreToken);
+            this.tokens.push({ typ: "GreToken", val: ">" } as GreToken);
             this.advance();
             break;
           case "=":
             this.flushBuffer();
-            this.tokens.push({ val: "=" } as EquToken);
+            this.tokens.push({ typ: "EquToken", val: "=" } as EquToken);
             this.advance();
             break;
           case "+":
             this.flushBuffer();
-            this.tokens.push({ val: "+" } as AddToken);
+            this.tokens.push({ typ: "AddToken", val: "+" } as AddToken);
             this.advance();
             break;
           case "-":
             this.flushBuffer();
-            this.tokens.push({ val: "-" } as SubToken);
+            this.tokens.push({ typ: "SubToken", val: "-" } as SubToken);
             this.advance();
             break;
           case "*":
             this.flushBuffer();
-            this.tokens.push({ val: "*" } as MulToken);
+            this.tokens.push({ typ: "MulToken", val: "*" } as MulToken);
             this.advance();
             break;
           case "/":
             this.flushBuffer();
-            this.tokens.push({ val: "/" } as DivToken);
+            this.tokens.push({ typ: "DivToken", val: "/" } as DivToken);
             this.advance();
             break;
           case " ":
@@ -224,6 +225,7 @@ export class Lexer {
             break;
           case "\n":
             this.flushBuffer();
+            this.tokens.push({ typ: "NewLineToken", val: "\n" } as NewLineToken)
             this.lineno++;
             this.advance();
             break;

@@ -1,45 +1,50 @@
 /* Literal tokens */
 
-export type NumToken = { val: string };
-export type StrToken = { val: string };
-export type IdeToken = { val: string };
-export type BooToken = { val: string };
-export type NulToken = { val: string };
+export type NumToken = { typ: "NumToken", val: string };
+export type StrToken = { typ: "StrToken", val: string };
+export type IdeToken = { typ: "IdeToken", val: string };
+export type NulToken = { typ: "NulToken", val: string };
 
 /* Symbol tokens */
 
-export type LpaToken = { val: "(" };
-export type RpaToken = { val: ")" };
-export type LcuToken = { val: "{" };
-export type RcuToken = { val: "}" };
-export type LbrToken = { val: "[" };
-export type RbrToken = { val: "]" };
+export type LpaToken = { typ: "LpaToken", val: "(" };
+export type RpaToken = { typ: "RpaToken", val: ")" };
+export type LcuToken = { typ: "LcuToken", val: "{" };
+export type RcuToken = { typ: "RcuToken", val: "}" };
+export type LbrToken = { typ: "LbrToken", val: "[" };
+export type RbrToken = { typ: "RbrToken", val: "]" };
 
-export type ComToken = { val: "," };
-export type ColToken = { val: ":" };
-export type SemToken = { val: ";" };
-export type DotToken = { val: "." };
+export type ComToken = { typ: "ComToken", val: "," };
+export type ColToken = { typ: "ColToken", val: ":" };
+export type SemToken = { typ: "SemToken", val: ";" };
+export type DotToken = { typ: "DotToken", val: "." };
 
-export type LesToken = { val: "<" };
-export type GreToken = { val: ">" };
-export type EquToken = { val: "=" };
+export type LesToken = { typ: "LesToken", val: "<" };
+export type GreToken = { typ: "GreToken", val: ">" };
+export type EquToken = { typ: "EquToken", val: "=" };
 
 /* Operator tokens */
 
-export type AddToken = { val: "+" };
-export type SubToken = { val: "-" };
-export type MulToken = { val: "*" };
-export type DivToken = { val: "/" };
+export type AddToken = { typ: "AddToken", val: "+" };
+export type SubToken = { typ: "SubToken", val: "-" };
+export type MulToken = { typ: "MulToken", val: "*" };
+export type DivToken = { typ: "DivToken", val: "/" };
 
-/* Keyword token */
+/* Keyword tokens */
 
-export type KeyToken = { val: string };
+export type KeyToken = { typ: "KeyToken", val: string };
+
 
 /* Literal types tokens */
 
-export type NumTypeToken = { val: "num" };
-export type StrTypeToken = { val: "str" };
-export type NulTypeToken = { val: "nul" };
+export type NumTypeToken = { typ: "NumTypeToken", val: "num" };
+export type StrTypeToken = { typ: "StrTypeToken", val: "str" };
+export type NulTypeToken = { typ: "NulTypeToken", val: "nul" };
+
+
+/* System tokens */
+
+export type NewLineToken = { typ: "NewLineToken", val: "\n" };
 
 /* Token */
 
@@ -47,7 +52,6 @@ export type Token =
   | NumToken
   | StrToken
   | IdeToken
-  | BooToken
   | NulToken
   | LpaToken
   | RpaToken
@@ -66,7 +70,10 @@ export type Token =
   | SubToken
   | MulToken
   | DivToken
-  | KeyToken
   | NumTypeToken
   | StrTypeToken
-  | NulTypeToken;
+  | KeyToken
+  | NulTypeToken
+  | NewLineToken
+  ;
+
