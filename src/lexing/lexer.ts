@@ -1,4 +1,30 @@
-import { IdeToken, KeyToken, LcuToken, LpaToken, RcuToken, NulTypeToken, NumToken, NumTypeToken, RpaToken, StrToken, StrTypeToken, Token, LbrToken, RbrToken, ComToken, ColToken, SemToken, DotToken, LesToken, GreToken, EquToken, AddToken, SubToken, MulToken, DivToken } from "./tokens.ts";
+import {
+  AddToken,
+  ColToken,
+  ComToken,
+  DivToken,
+  DotToken,
+  EquToken,
+  GreToken,
+  IdeToken,
+  KeyToken,
+  LbrToken,
+  LcuToken,
+  LesToken,
+  LpaToken,
+  MulToken,
+  NulTypeToken,
+  NumToken,
+  NumTypeToken,
+  RbrToken,
+  RcuToken,
+  RpaToken,
+  SemToken,
+  StrToken,
+  StrTypeToken,
+  SubToken,
+  Token,
+} from "./tokens.ts";
 
 export class Lexer {
   private source: string[];
@@ -23,7 +49,7 @@ export class Lexer {
   }
 
   private advance(): void {
-    this.ccount ++;
+    this.ccount++;
     if (this.source.length > this.ccount) {
       this.cursor = this.source[this.ccount];
     } else {
@@ -62,7 +88,8 @@ export class Lexer {
       case "nul":
         this.tokens.push({ val: "nul" } as NulTypeToken);
         break;
-      default: break;
+      default:
+        break;
     }
   }
 
@@ -82,7 +109,7 @@ export class Lexer {
 
   private flushString(): void {
     if (this.string.length > 0) {
-      this.tokens.push({ val: this.string } as StrToken)
+      this.tokens.push({ val: this.string } as StrToken);
     }
     this.string = "";
   }
@@ -93,17 +120,14 @@ export class Lexer {
         this.flushBuffer();
         this.quotes = true;
         this.advance();
-      }
-      else if (this.cursor === '"' && this.quotes === true) {
+      } else if (this.cursor === '"' && this.quotes === true) {
         this.flushString();
         this.quotes = false;
         this.advance();
-      }
-      else if (this.cursor !== '"' && this.quotes === true) {
+      } else if (this.cursor !== '"' && this.quotes === true) {
         this.string += this.cursor;
         this.advance();
-      }
-      else if (this.cursor !== '"' && this.quotes === false) {
+      } else if (this.cursor !== '"' && this.quotes === false) {
         switch (this.cursor) {
           case "(":
             this.flushBuffer();
@@ -128,7 +152,7 @@ export class Lexer {
           case "[":
             this.flushBuffer();
             this.tokens.push({ val: "[" } as LbrToken);
-            this.advance()
+            this.advance();
             break;
           case "]":
             this.flushBuffer();
@@ -200,7 +224,7 @@ export class Lexer {
             break;
           case "\n":
             this.flushBuffer();
-            this.lineno ++;
+            this.lineno++;
             this.advance();
             break;
           default:
@@ -208,8 +232,7 @@ export class Lexer {
             this.advance();
             break;
         }
-      }
-      else {
+      } else {
         this.error("Lexer.run() method might be broken :3");
       }
     }

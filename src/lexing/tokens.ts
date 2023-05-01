@@ -1,6 +1,3 @@
-
-
-
 /* Literal tokens */
 
 export type NumToken = { val: string };
@@ -8,7 +5,6 @@ export type StrToken = { val: string };
 export type IdeToken = { val: string };
 export type BooToken = { val: string };
 export type NulToken = { val: string };
-
 
 /* Symbol tokens */
 
@@ -28,7 +24,6 @@ export type LesToken = { val: "<" };
 export type GreToken = { val: ">" };
 export type EquToken = { val: "=" };
 
-
 /* Operator tokens */
 
 export type AddToken = { val: "+" };
@@ -40,13 +35,11 @@ export type DivToken = { val: "/" };
 
 export type KeyToken = { val: string };
 
-
 /* Literal types tokens */
 
-export type NumTypeToken = { val: "num" }
-export type StrTypeToken = { val: "str" }
-export type NulTypeToken = { val: "nul" }
-
+export type NumTypeToken = { val: "num" };
+export type StrTypeToken = { val: "str" };
+export type NulTypeToken = { val: "nul" };
 
 /* Token */
 
@@ -56,7 +49,6 @@ export type Token =
   | IdeToken
   | BooToken
   | NulToken
-
   | LpaToken
   | RpaToken
   | LcuToken
@@ -67,19 +59,14 @@ export type Token =
   | ColToken
   | SemToken
   | DotToken
-
   | LesToken
   | GreToken
   | EquToken
-
   | AddToken
   | SubToken
   | MulToken
   | DivToken
-
   | KeyToken
-
   | NumTypeToken
   | StrTypeToken
-  | NulTypeToken
-;
+  | NulTypeToken;
